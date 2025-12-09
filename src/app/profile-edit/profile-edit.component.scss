@@ -1,0 +1,469 @@
+.edit-container {
+  min-height: 100vh;
+  padding: 24px;
+  background-color: #141314;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.edit-card {
+  max-width: 900px;
+  width: 100%;
+  margin-top: 40px;
+  background-color: #1D1B20;
+  border-radius: 12px;
+}
+
+mat-card-header {
+  margin-bottom: 24px;
+
+  h1 {
+    font-size: 32px;
+    font-weight: 600;
+    color: #E8DEF8;
+    margin: 0;
+  }
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  gap: 16px;
+
+  p {
+    color: #CAC4D0;
+    font-size: 16px;
+  }
+}
+
+.form-section {
+  margin-bottom: 32px;
+
+  h2 {
+    font-size: 20px;
+    font-weight: 500;
+    color: #E8DEF8;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #4A4458;
+  }
+}
+
+.profile-picture-preview-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.profile-picture-preview,
+.profile-picture-placeholder {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #6750A4;
+}
+
+.profile-picture-placeholder {
+  background: #4A4458;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  mat-icon {
+    font-size: 64px;
+    width: 64px;
+    height: 64px;
+    color: #E8DEF8;
+  }
+}
+
+.full-width {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.skills-input-container {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+  align-items: flex-start;
+
+  .skill-input {
+    flex: 1;
+    margin-bottom: 0;
+  }
+
+  .add-skill-btn {
+    margin-top: 8px;
+    height: 40px;
+  }
+}
+
+.skills-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  min-height: 50px;
+  padding: 12px;
+  background-color: #2B2930;
+  border-radius: 8px;
+}
+
+.skill-chip {
+  background-color: #4A4458 !important;
+  color: #E8DEF8 !important;
+  font-family: "JetBrains Mono", monospace !important;
+  border: 1px solid #625B71;
+
+  .skill-chip-input {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #E8DEF8;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 14px;
+    padding: 4px 8px;
+    width: 120px;
+  }
+
+  mat-icon {
+    color: #E8DEF8;
+    cursor: pointer;
+  }
+}
+
+.contact-info-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.contact-item {
+  display: grid;
+  grid-template-columns: auto 1fr 2fr 1fr auto;
+  gap: 12px;
+  align-items: start;
+  padding: 16px;
+  background-color: #2B2930;
+  border-radius: 8px;
+
+  .contact-icon-preview {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-color: #4A4458;
+    margin-top: 8px;
+
+    mat-icon {
+      color: #E8DEF8;
+      font-size: 24px;
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  .contact-field {
+    margin-bottom: 0;
+  }
+
+  .remove-contact-btn {
+    margin-top: 8px;
+  }
+}
+
+.add-contact-btn {
+  margin-top: 8px;
+}
+
+.experience-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.experience-panel {
+  background-color: #2B2930 !important;
+  border-radius: 8px !important;
+  border: 1px solid #4A4458;
+
+  mat-panel-title {
+    color: #E8DEF8;
+    font-weight: 500;
+
+    .company-name {
+      color: #CAC4D0;
+      font-weight: 400;
+    }
+  }
+}
+
+.experience-content {
+  padding: 16px 0;
+}
+
+.experience-row {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.half-width {
+  flex: 1;
+}
+
+.description-section {
+  margin: 24px 0;
+
+  h3 {
+    font-size: 16px;
+    font-weight: 500;
+    color: #E8DEF8;
+    margin-bottom: 12px;
+  }
+}
+
+.description-item {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  margin-bottom: 12px;
+
+  .description-field {
+    flex: 1;
+    margin-bottom: 0;
+  }
+}
+
+.add-description-btn {
+  margin-bottom: 16px;
+}
+
+.remove-experience-btn {
+  margin-top: 16px;
+  width: 100%;
+}
+
+.add-experience-btn {
+  margin-top: 8px;
+}
+
+.education-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.education-panel {
+  background-color: #2B2930 !important;
+  border-radius: 8px !important;
+  border: 1px solid #4A4458;
+
+  mat-panel-title {
+    color: #E8DEF8;
+    font-weight: 500;
+
+    .institution-name {
+      color: #CAC4D0;
+      font-weight: 400;
+    }
+  }
+}
+
+.education-content {
+  padding: 16px 0;
+}
+
+.education-row {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.coursework-section {
+  margin: 24px 0;
+
+  h3 {
+    font-size: 16px;
+    font-weight: 500;
+    color: #E8DEF8;
+    margin-bottom: 12px;
+  }
+}
+
+.coursework-item {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  margin-bottom: 12px;
+
+  .coursework-field {
+    flex: 1;
+    margin-bottom: 0;
+  }
+}
+
+.add-coursework-btn {
+  margin-bottom: 16px;
+}
+
+.remove-education-btn {
+  margin-top: 16px;
+  width: 100%;
+}
+
+.add-education-btn {
+  margin-top: 8px;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid #4A4458;
+
+  .action-buttons-left {
+    display: flex;
+    gap: 12px;
+  }
+
+  .clear-button {
+    border-color: #F2B8B5;
+    color: #F2B8B5;
+
+    &:hover {
+      background-color: rgba(242, 184, 181, 0.08);
+    }
+
+    mat-icon {
+      margin-right: 8px;
+    }
+  }
+
+  .reset-button {
+    border-color: #FFB4AB;
+    color: #FFB4AB;
+
+    &:hover {
+      background-color: rgba(255, 180, 171, 0.08);
+    }
+
+    mat-icon {
+      margin-right: 8px;
+    }
+  }
+
+  .action-buttons-right {
+    display: flex;
+    gap: 12px;
+  }
+
+  button {
+    min-width: 120px;
+    height: 48px;
+    font-weight: 500;
+
+    mat-icon {
+      margin-right: 8px;
+    }
+
+    mat-spinner {
+      margin-right: 8px;
+    }
+  }
+}
+
+.error-message {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  margin-top: 16px;
+  background-color: #93000A;
+  border-radius: 8px;
+  color: #FFB4AB;
+
+  mat-icon {
+    color: #FFB4AB;
+  }
+
+  p {
+    margin: 0;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 768px) {
+  .edit-container {
+    padding: 16px;
+  }
+
+  .edit-card {
+    margin-top: 20px;
+  }
+
+  mat-card-header h1 {
+    font-size: 24px;
+  }
+
+  .contact-item {
+    grid-template-columns: 1fr;
+    gap: 8px;
+
+    .contact-icon-preview {
+      justify-self: center;
+      margin-bottom: 8px;
+    }
+
+    .remove-contact-btn {
+      justify-self: flex-end;
+    }
+  }
+
+  .skills-input-container {
+    flex-direction: column;
+
+    .add-skill-btn {
+      width: 100%;
+      margin-top: 0;
+    }
+  }
+
+  .form-actions {
+    flex-direction: column;
+
+    .action-buttons-left {
+      flex-direction: column;
+      width: 100%;
+      order: 3;
+
+      .clear-button,
+      .reset-button {
+        width: 100%;
+      }
+    }
+
+    .action-buttons-right {
+      flex-direction: column-reverse;
+      width: 100%;
+      order: 1;
+
+      button {
+        width: 100%;
+      }
+    }
+  }
+}

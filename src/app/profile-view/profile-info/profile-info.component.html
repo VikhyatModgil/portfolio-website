@@ -1,0 +1,41 @@
+<div class="profile-info-container">
+  <div class="profile-card">
+    <div>
+      <div class="profile-picture-container">
+        @if (userService.userProfile().profilePictureUrl) {
+          <img [src]="userService.userProfile().profilePictureUrl" alt="Profile Picture" class="profile-picture" />
+        } @else {
+          <div class="profile-picture">
+            <mat-icon class="profile-avatar">person</mat-icon>
+          </div>
+        }
+      </div>
+
+      <div class="profile-name">
+        <h1>{{ userService.userProfile().name }}</h1>
+        <p class="profile-title">{{ userService.userProfile().title }}</p>
+      </div>
+
+      <div class="contact-info">
+        <h3>Contact Information</h3>
+        <div class="contact-icons-container">
+          @for (contact of userService.userProfile().contactInfo; track contact.type) {
+            <div
+              class="contact-icon-item"
+              [matTooltip]="contact.value"
+              (click)="handleContactClick(contact.type, contact.value)">
+              <mat-icon>{{ contact.icon }}</mat-icon>
+            </div>
+          }
+        </div>
+      </div>
+
+      @if (userService.userProfile().bio) {
+        <div class="profile-bio">
+          <h3>About</h3>
+          <p>{{ userService.userProfile().bio }}</p>
+        </div>
+      }
+    </div>
+  </div>
+</div>

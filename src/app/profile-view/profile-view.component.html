@@ -1,0 +1,9 @@
+<div class="profile-container">
+  <div class="profile-left">
+    <app-profile-info />
+  </div>
+  <div class="profile-right">
+    <app-menu-bar (menuItemSelected)="onMenuItemSelected($event)"></app-menu-bar>
+    <app-portfolio [scrollToSection]="selectedSection()"></app-portfolio>
+  </div>
+</div>

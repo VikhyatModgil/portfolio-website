@@ -1,0 +1,457 @@
+<div class="edit-container">
+  <mat-card class="edit-card">
+    <mat-card-header>
+      <mat-card-title>
+        <h1>Edit Profile</h1>
+      </mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      @if (userService.loading() || !profileForm) {
+        <div class="loading-container">
+          <mat-spinner></mat-spinner>
+          <p>Loading profile...</p>
+        </div>
+      } @else {
+        <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+          <div class="form-section">
+            <h2>Basic Information</h2>
+
+            <div class="profile-picture-preview-container">
+              @if (profileForm.get('profilePictureUrl')?.value) {
+                <img [src]="profileForm.get('profilePictureUrl')?.value" alt="Profile Picture" class="profile-picture-preview" />
+              } @else {
+                <div class="profile-picture-placeholder">
+                  <mat-icon>person</mat-icon>
+                </div>
+              }
+            </div>
+
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Profile Picture URL</mat-label>
+              <input matInput formControlName="profilePictureUrl" placeholder="https://example.com/profile.jpg" />
+              <mat-hint>Enter a URL to your profile picture</mat-hint>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Name</mat-label>
+              <input matInput formControlName="name" placeholder="Your full name" />
+              @if (profileForm.get('name')?.hasError('required')) {
+                <mat-error>Name is required</mat-error>
+              }
+              @if (profileForm.get('name')?.hasError('minlength')) {
+                <mat-error>Name must be at least 2 characters</mat-error>
+              }
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Title</mat-label>
+              <input matInput formControlName="title" placeholder="Your professional title" />
+              @if (profileForm.get('title')?.hasError('required')) {
+                <mat-error>Title is required</mat-error>
+              }
+              @if (profileForm.get('title')?.hasError('minlength')) {
+                <mat-error>Title must be at least 5 characters</mat-error>
+              }
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Bio</mat-label>
+              <textarea
+                matInput
+                formControlName="bio"
+                placeholder="Tell us about yourself"
+                rows="4"
+              ></textarea>
+              @if (profileForm.get('bio')?.hasError('required')) {
+                <mat-error>Bio is required</mat-error>
+              }
+              @if (profileForm.get('bio')?.hasError('minlength')) {
+                <mat-error>Bio must be at least 20 characters</mat-error>
+              }
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Resume Download Link</mat-label>
+              <input matInput formControlName="resumeLink" placeholder="https://example.com/resume.pdf" />
+              <mat-hint>Enter a direct download link to your resume. Visitors can download it from your profile.</mat-hint>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>CV Download Link</mat-label>
+              <input matInput formControlName="cvLink" placeholder="https://example.com/cv.pdf" />
+              <mat-hint>Enter a direct download link to your CV. Visitors can download it from your profile.</mat-hint>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Projects Link</mat-label>
+              <input matInput formControlName="projectsLink" placeholder="https://github.com/yourusername" />
+              <mat-hint>Enter a link to your projects (e.g., GitHub profile). Visitors can view your projects from your profile.</mat-hint>
+            </mat-form-field>
+          </div>
+
+          <div class="form-section">
+            <h2>Skills</h2>
+
+            <div class="skills-input-container">
+              <mat-form-field appearance="outline" class="skill-input">
+                <mat-label>Add new skill</mat-label>
+                <input
+                  matInput
+                  [value]="newSkill()"
+                  (input)="newSkill.set($any($event.target).value)"
+                  (keyup.enter)="addSkill()"
+                  placeholder="e.g., TypeScript, Angular"
+                />
+              </mat-form-field>
+              <button
+                mat-raised-button
+                color="primary"
+                type="button"
+                (click)="addSkill()"
+                class="add-skill-btn"
+              >
+                <mat-icon>add</mat-icon>
+                Add Skill
+              </button>
+            </div>
+
+            <div class="skills-list" formArrayName="skills">
+              @for (skill of skills.controls; track skill; let i = $index) {
+                <mat-chip-row class="skill-chip">
+                  <input matInput [formControlName]="i" class="skill-chip-input" />
+                  <button matChipRemove type="button" (click)="removeSkill(i)">
+                    <mat-icon>cancel</mat-icon>
+                  </button>
+                </mat-chip-row>
+              }
+            </div>
+          </div>
+
+          <div class="form-section">
+            <h2>Contact Information</h2>
+
+            <div formArrayName="contactInfo" class="contact-info-list">
+              @for (contact of contactInfo.controls; track contact; let i = $index) {
+                <div [formGroupName]="i" class="contact-item">
+                  <div class="contact-icon-preview">
+                    <mat-icon>{{ contact.get('icon')?.value || 'contact_mail' }}</mat-icon>
+                  </div>
+
+                  <mat-form-field appearance="outline" class="contact-field">
+                    <mat-label>Type</mat-label>
+                    <input matInput formControlName="type" placeholder="e.g., email, phone" />
+                  </mat-form-field>
+
+                  <mat-form-field appearance="outline" class="contact-field">
+                    <mat-label>Value</mat-label>
+                    <input matInput formControlName="value" placeholder="Contact value" />
+                  </mat-form-field>
+
+                  <mat-form-field appearance="outline" class="contact-field">
+                    <mat-label>Icon</mat-label>
+                    <input matInput formControlName="icon" placeholder="Icon name" />
+                  </mat-form-field>
+
+                  <button
+                    mat-icon-button
+                    color="warn"
+                    type="button"
+                    (click)="removeContactInfo(i)"
+                    class="remove-contact-btn"
+                  >
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </div>
+              }
+            </div>
+
+            <button
+              mat-stroked-button
+              type="button"
+              (click)="addContactInfo()"
+              class="add-contact-btn"
+            >
+              <mat-icon>add</mat-icon>
+              Add Contact Info
+            </button>
+          </div>
+
+          <div class="form-section">
+            <h2>Experience</h2>
+
+            <div formArrayName="experience" class="experience-list">
+              @for (exp of experience.controls; track exp; let expIndex = $index) {
+                <mat-expansion-panel [formGroupName]="expIndex" class="experience-panel">
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      {{ exp.get('title')?.value || 'New Position' }}
+                      @if (exp.get('company')?.value) {
+                        <span class="company-name"> - {{ exp.get('company')?.value }}</span>
+                      }
+                    </mat-panel-title>
+                  </mat-expansion-panel-header>
+
+                  <div class="experience-content">
+                    <mat-form-field appearance="outline" class="full-width">
+                      <mat-label>Job Title</mat-label>
+                      <input matInput formControlName="title" placeholder="e.g., Software Engineer" />
+                      @if (exp.get('title')?.hasError('required')) {
+                        <mat-error>Job title is required</mat-error>
+                      }
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="full-width">
+                      <mat-label>Company</mat-label>
+                      <input matInput formControlName="company" placeholder="e.g., Google" />
+                      @if (exp.get('company')?.hasError('required')) {
+                        <mat-error>Company is required</mat-error>
+                      }
+                    </mat-form-field>
+
+                    <div class="experience-row">
+                      <mat-form-field appearance="outline" class="half-width">
+                        <mat-label>Location</mat-label>
+                        <input matInput formControlName="location" placeholder="e.g., San Diego, CA" />
+                        @if (exp.get('location')?.hasError('required')) {
+                          <mat-error>Location is required</mat-error>
+                        }
+                      </mat-form-field>
+
+                      <mat-form-field appearance="outline" class="half-width">
+                        <mat-label>Dates</mat-label>
+                        <input matInput formControlName="dates" placeholder="e.g., Jan 2020 - Present" />
+                        @if (exp.get('dates')?.hasError('required')) {
+                          <mat-error>Dates are required</mat-error>
+                        }
+                      </mat-form-field>
+                    </div>
+
+                    <div class="description-section">
+                      <h3>Responsibilities & Achievements</h3>
+                      <div formArrayName="description">
+                        @for (desc of getExperienceDescription(expIndex).controls; track desc; let descIndex = $index) {
+                          <div class="description-item">
+                            <mat-form-field appearance="outline" class="description-field">
+                              <mat-label>Description {{ descIndex + 1 }}</mat-label>
+                              <textarea
+                                matInput
+                                [formControlName]="descIndex"
+                                placeholder="Describe your responsibilities and achievements"
+                                rows="2"
+                              ></textarea>
+                            </mat-form-field>
+                            <button
+                              mat-icon-button
+                              color="warn"
+                              type="button"
+                              (click)="removeExperienceDescription(expIndex, descIndex)"
+                              [disabled]="getExperienceDescription(expIndex).length === 1"
+                            >
+                              <mat-icon>delete</mat-icon>
+                            </button>
+                          </div>
+                        }
+                      </div>
+                      <button
+                        mat-stroked-button
+                        type="button"
+                        (click)="addExperienceDescription(expIndex)"
+                        class="add-description-btn"
+                      >
+                        <mat-icon>add</mat-icon>
+                        Add Description
+                      </button>
+                    </div>
+
+                    <button
+                      mat-raised-button
+                      color="warn"
+                      type="button"
+                      (click)="removeExperience(expIndex)"
+                      class="remove-experience-btn"
+                    >
+                      <mat-icon>delete</mat-icon>
+                      Remove This Experience
+                    </button>
+                  </div>
+                </mat-expansion-panel>
+              }
+            </div>
+
+            <button
+              mat-stroked-button
+              type="button"
+              (click)="addExperience()"
+              class="add-experience-btn"
+            >
+              <mat-icon>add</mat-icon>
+              Add Experience
+            </button>
+          </div>
+
+          <div class="form-section">
+            <h2>Education</h2>
+
+            <div formArrayName="education" class="education-list">
+              @for (edu of education.controls; track edu; let eduIndex = $index) {
+                <mat-expansion-panel [formGroupName]="eduIndex" class="education-panel">
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      {{ edu.get('degree')?.value || 'New Degree' }}
+                      @if (edu.get('institution')?.value) {
+                        <span class="institution-name"> - {{ edu.get('institution')?.value }}</span>
+                      }
+                    </mat-panel-title>
+                  </mat-expansion-panel-header>
+
+                  <div class="education-content">
+                    <mat-form-field appearance="outline" class="full-width">
+                      <mat-label>Degree</mat-label>
+                      <input matInput formControlName="degree" placeholder="e.g., Bachelor of Science in Computer Science" />
+                      @if (edu.get('degree')?.hasError('required')) {
+                        <mat-error>Degree is required</mat-error>
+                      }
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="full-width">
+                      <mat-label>Institution</mat-label>
+                      <input matInput formControlName="institution" placeholder="e.g., San Diego State University" />
+                      @if (edu.get('institution')?.hasError('required')) {
+                        <mat-error>Institution is required</mat-error>
+                      }
+                    </mat-form-field>
+
+                    <div class="education-row">
+                      <mat-form-field appearance="outline" class="half-width">
+                        <mat-label>Location</mat-label>
+                        <input matInput formControlName="location" placeholder="e.g., San Diego, CA" />
+                        @if (edu.get('location')?.hasError('required')) {
+                          <mat-error>Location is required</mat-error>
+                        }
+                      </mat-form-field>
+
+                      <mat-form-field appearance="outline" class="half-width">
+                        <mat-label>Dates</mat-label>
+                        <input matInput formControlName="dates" placeholder="e.g., Aug 2017 - Dec 2021" />
+                        @if (edu.get('dates')?.hasError('required')) {
+                          <mat-error>Dates are required</mat-error>
+                        }
+                      </mat-form-field>
+                    </div>
+
+                    <div class="coursework-section">
+                      <h3>Relevant Coursework</h3>
+                      <div formArrayName="coursework">
+                        @for (course of getEducationCoursework(eduIndex).controls; track course; let courseIndex = $index) {
+                          <div class="coursework-item">
+                            <mat-form-field appearance="outline" class="coursework-field">
+                              <mat-label>Course {{ courseIndex + 1 }}</mat-label>
+                              <input
+                                matInput
+                                [formControlName]="courseIndex"
+                                placeholder="e.g., Machine Learning"
+                              />
+                            </mat-form-field>
+                            <button
+                              mat-icon-button
+                              color="warn"
+                              type="button"
+                              (click)="removeEducationCoursework(eduIndex, courseIndex)"
+                            >
+                              <mat-icon>delete</mat-icon>
+                            </button>
+                          </div>
+                        }
+                      </div>
+                      <button
+                        mat-stroked-button
+                        type="button"
+                        (click)="addEducationCoursework(eduIndex)"
+                        class="add-coursework-btn"
+                      >
+                        <mat-icon>add</mat-icon>
+                        Add Coursework
+                      </button>
+                    </div>
+
+                    <button
+                      mat-raised-button
+                      color="warn"
+                      type="button"
+                      (click)="removeEducation(eduIndex)"
+                      class="remove-education-btn"
+                    >
+                      <mat-icon>delete</mat-icon>
+                      Remove This Education
+                    </button>
+                  </div>
+                </mat-expansion-panel>
+              }
+            </div>
+
+            <button
+              mat-stroked-button
+              type="button"
+              (click)="addEducation()"
+              class="add-education-btn"
+            >
+              <mat-icon>add</mat-icon>
+              Add Education
+            </button>
+          </div>
+
+          <div class="form-actions">
+            <div class="action-buttons-left">
+              <button
+                mat-stroked-button
+                type="button"
+                (click)="clearAll()"
+                [disabled]="saving()"
+                class="clear-button"
+              >
+                <mat-icon>clear_all</mat-icon>
+                Clear All
+              </button>
+              <button
+                mat-stroked-button
+                type="button"
+                (click)="resetToDefault()"
+                [disabled]="saving()"
+                class="reset-button"
+              >
+                <mat-icon>restore</mat-icon>
+                Reset to Default
+              </button>
+            </div>
+            <div class="action-buttons-right">
+              <button mat-button type="button" (click)="cancel()" [disabled]="saving()">
+                Cancel
+              </button>
+              <button
+                mat-raised-button
+                color="primary"
+                type="submit"
+                [disabled]="profileForm.invalid || saving()"
+              >
+                @if (saving()) {
+                  <mat-spinner diameter="20"></mat-spinner>
+                  Saving...
+                } @else {
+                  Save Changes
+                }
+              </button>
+            </div>
+          </div>
+        </form>
+      }
+
+      @if (userService.error()) {
+        <div class="error-message">
+          <mat-icon>error</mat-icon>
+          <p>{{ userService.error() }}</p>
+        </div>
+      }
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -1,0 +1,100 @@
+<mat-sidenav-container class="portfolio-sidenav-container">
+  <mat-sidenav-content class="portfolio-content">
+    @if (userService.loading()) {
+      <div class="loading-container">
+        <p>Loading profile...</p>
+      </div>
+    } @else {
+      <main>
+        @if (userService.userProfile().education && userService.userProfile().education.length > 0) {
+          <section id="education" class="portfolio-section">
+            <h2 class="mat-headline-medium">Education</h2>
+            @for (edu of userService.userProfile().education; track edu.institution + edu.degree) {
+              <mat-card class="education-card">
+                <mat-card-header>
+                  <mat-card-title>{{edu.degree}}</mat-card-title>
+                  <mat-card-subtitle>{{edu.institution}} - {{edu.location}} - {{edu.dates}}</mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                  @if (edu.coursework && edu.coursework.length > 0) {
+                    <ul>
+                      @for (course of edu.coursework; track $index) {
+                        <li>{{course}}</li>
+                      }
+                    </ul>
+                  }
+                </mat-card-content>
+              </mat-card>
+            }
+          </section>
+        }
+
+        @if (userService.userProfile().resumeLink) {
+          <section id="resume" class="portfolio-section">
+            <h2 class="mat-headline-medium">Resume</h2>
+            <p class="mat-body-1">View my resume.</p>
+            <button mat-flat-button color="primary" (click)="openResumeLink()">
+              <mat-icon>download</mat-icon> Download Resume
+            </button>
+          </section>
+        }
+
+        @if (userService.userProfile().cvLink) {
+          <section id="cv" class="portfolio-section">
+            <h2 class="mat-headline-medium">CV</h2>
+            <p class="mat-body-1">Download my CV.</p>
+            <button mat-flat-button color="primary" (click)="openCvLink()">
+              <mat-icon>download</mat-icon> Download CV
+            </button>
+          </section>
+        }
+
+        @if (userService.userProfile().projectsLink) {
+          <section id="projects" class="portfolio-section">
+            <h2 class="mat-headline-medium">Projects</h2>
+            <p class="mat-body-1">Check out my projects on GitHub.</p>
+            <button mat-flat-button color="primary" (click)="openProjectsLink()">
+              <mat-icon>code</mat-icon> View Projects
+            </button>
+          </section>
+        }
+
+        @if (userService.userProfile().skills && userService.userProfile().skills.length > 0) {
+          <section id="skills" class="portfolio-section">
+            <h2 class="mat-headline-medium">Skills</h2>
+            <mat-card class="skills-card">
+            <mat-card-content>
+              <mat-chip-listbox aria-label="Skills">
+                @for (skill of userService.userProfile().skills; track skill) {
+                  <mat-chip [matTooltip]="skill" matTooltipPosition="above">{{skill}}</mat-chip>
+                }
+              </mat-chip-listbox>
+            </mat-card-content>
+          </mat-card>
+          </section>
+        }
+
+        @if (userService.userProfile().experience && userService.userProfile().experience.length > 0) {
+          <section id="experience" class="portfolio-section">
+            <h2 class="mat-headline-medium">Experience</h2>
+            @for (exp of userService.userProfile().experience; track exp.company + exp.title) {
+              <mat-card class="experience-card">
+                <mat-card-header>
+                  <mat-card-title>{{exp.title}} at {{exp.company}}</mat-card-title>
+                  <mat-card-subtitle>{{exp.dates}} - {{exp.location}}</mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                  <ul>
+                    @for (point of exp.description; track $index) {
+                      <li>{{point}}</li>
+                    }
+                  </ul>
+                </mat-card-content>
+              </mat-card>
+            }
+          </section>
+        }
+      </main>
+    }
+  </mat-sidenav-content>
+</mat-sidenav-container>

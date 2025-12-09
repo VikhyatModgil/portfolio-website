@@ -1,0 +1,372 @@
+:host {
+  display: flex;
+  height: auto;
+}
+
+.portfolio-sidenav-container {
+  flex: 1;
+  height: 100%;
+}
+
+.portfolio-sidenav {
+  width: 250px;
+  background-color: var(--md-sys-color-surface-container);
+  color: var(--md-sys-color-on-surface-variant);
+  box-shadow: var(--md-sys-elevation-level-2);
+
+  .portfolio-avatar-section {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-bottom: 1px solid var(--md-sys-color-outline-variant);
+
+    .portfolio-avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 8px;
+      border: 2px solid var(--md-sys-color-primary);
+    }
+
+    h2 {
+      margin: 0;
+      color: var(--md-sys-color-on-surface);
+      font-size: 24px;
+      font-weight: 400;
+      line-height: 32px;
+    }
+
+    p {
+      margin: 0;
+      color: var(--md-sys-color-on-surface-variant);
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 20px;
+      letter-spacing: 0.25px;
+    }
+  }
+
+  mat-nav-list {
+    padding-top: 0;
+
+    .mat-list-item {
+      color: var(--md-sys-color-on-surface-variant);
+      height: 48px;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 20px;
+      letter-spacing: 0.1px;
+
+      &.selected {
+        background-color: var(--md-sys-color-secondary-container);
+        color: var(--md-sys-color-on-secondary-container);
+
+        .mat-icon {
+          color: var(--md-sys-color-on-secondary-container);
+        }
+      }
+
+      &:hover {
+        background-color: rgba(var(--md-sys-color-on-surface-rgb), 0.08);
+      }
+
+      &:focus {
+        background-color: rgba(var(--md-sys-color-on-surface-rgb), 0.1);
+        outline: 3px solid var(--md-sys-color-secondary);
+        outline-offset: -3px;
+      }
+
+      &:active {
+        background-color: rgba(var(--md-sys-color-on-surface-rgb), 0.1);
+      }
+
+      .mat-icon {
+        color: var(--md-sys-color-on-surface-variant);
+        margin-right: 12px;
+      }
+    }
+
+    mat-divider {
+      border-top-color: var(--md-sys-color-surface-variant);
+      height: 1px;
+      margin: 8px 0;
+    }
+  }
+}
+
+.portfolio-content {
+  overflow-y: auto;
+  scroll-behavior: smooth;
+  flex-grow: 1;
+  background-color: var(--md-sys-color-surface);
+  color: var(--md-sys-color-on-surface);
+
+  mask-image: linear-gradient(
+      to bottom,
+      transparent,
+      black 24px,
+      black calc(100% - 24px),
+      transparent
+  );
+  -webkit-mask-image: -webkit-linear-gradient(
+      to bottom,
+      transparent,
+      black 24px,
+      black calc(100% - 24px),
+      transparent
+  );
+
+  main {
+    padding: 24px;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+}
+
+.portfolio-section {
+  background-color: #2b2930;
+  padding: 24px;
+  margin-bottom: 24px;
+  border-radius: 16px;
+  box-shadow: var(--md-sys-elevation-level-1);
+  scroll-margin-top: 150px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  h2 {
+    color: var(--md-sys-color-primary);
+    margin-bottom: 24px;
+    font-size: 28px;
+    font-weight: 400;
+    line-height: 36px;
+  }
+
+  p {
+    color: var(--md-sys-color-on-surface-variant);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0.5px;
+  }
+
+  .experience-card,
+  .education-card,
+  .skills-card {
+    margin-bottom: 24px !important;
+    background-color: var(--md-sys-color-surface-container-low) !important;
+    box-shadow: none !important;
+    border: 1px solid var(--md-sys-color-outline-variant) !important;
+    border-radius: 12px !important;
+
+    &:last-child {
+      margin-bottom: 0 !important;
+    }
+  }
+
+  .experience-card,
+  .education-card {
+    mat-card-header {
+      padding: 16px !important;
+      background-color: transparent !important;
+
+      mat-card-title {
+        color: var(--md-sys-color-on-surface) !important;
+        margin-bottom: 4px !important;
+        font-size: 22px !important;
+        font-weight: 400 !important;
+        line-height: 28px !important;
+      }
+
+      mat-card-subtitle {
+        color: var(--md-sys-color-on-surface-variant) !important;
+        font-size: 14px !important;
+        font-weight: 400 !important;
+        line-height: 20px !important;
+        letter-spacing: 0.25px !important;
+      }
+    }
+  }
+
+  .experience-card mat-card-content,
+  .education-card mat-card-content {
+    padding: 0 16px 16px !important;
+    background-color: transparent !important;
+
+    ul {
+      list-style: disc !important;
+      padding-left: 24px !important;
+      margin: 0 !important;
+
+      li {
+        margin-bottom: 8px !important;
+        color: var(--md-sys-color-on-surface-variant) !important;
+        font-size: 16px !important;
+        font-weight: 400 !important;
+        line-height: 24px !important;
+        letter-spacing: 0.5px !important;
+
+        &:last-child {
+          margin-bottom: 0 !important;
+        }
+      }
+    }
+  }
+
+  .skills-card {
+    padding: 16px;
+    h3 {
+      color: var(--md-sys-color-on-surface);
+      margin-top: 16px;
+      margin-bottom: 8px;
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 24px;
+      letter-spacing: 0.15px;
+      &:first-child {
+        margin-top: 0;
+      }
+    }
+  }
+
+  mat-chip-listbox {
+    margin-top: 8px;
+    mat-chip {
+      background-color: var(--md-sys-color-secondary-container);
+      color: var(--md-sys-color-on-secondary-container);
+      margin: 4px;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 20px;
+      letter-spacing: 0.1px;
+      max-width: 200px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+
+  .contact-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    margin-top: 16px;
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      margin: 0;
+      cursor: pointer;
+      padding: 8px 12px;
+      border-radius: 8px;
+      transition: background-color 0.2s ease, transform 0.1s ease;
+      user-select: none;
+      max-width: 100%;
+
+      &:hover {
+        background-color: rgba(var(--md-sys-color-primary-rgb, 103, 80, 164), 0.08);
+        transform: translateY(-2px);
+      }
+
+      &:active {
+        transform: translateY(0);
+        background-color: rgba(var(--md-sys-color-primary-rgb, 103, 80, 164), 0.12);
+      }
+
+      .mat-icon {
+        margin-right: 8px;
+        color: var(--md-sys-color-primary);
+        flex-shrink: 0;
+      }
+
+      span {
+        color: var(--md-sys-color-primary);
+        font-weight: 500;
+        word-break: break-word;
+        overflow-wrap: anywhere;
+        min-width: 0;
+      }
+    }
+  }
+
+  .mat-flat-button {
+    margin-top: 16px;
+  }
+}
+
+@media (max-width: 640px) {
+  .portfolio-content {
+    main {
+      padding: 16px;
+    }
+  }
+
+  .portfolio-section {
+    padding: 16px;
+    margin-bottom: 16px;
+
+    h2 {
+      margin-bottom: 16px;
+      font-size: 24px;
+      font-weight: 400;
+      line-height: 32px;
+    }
+
+    .experience-card,
+    .education-card,
+    .skills-card {
+      margin-bottom: 16px !important;
+    }
+
+    .experience-card,
+    .education-card {
+      mat-card-header {
+        padding: 12px !important;
+
+        mat-card-title {
+          font-size: 16px !important;
+          font-weight: 500 !important;
+          line-height: 24px !important;
+          letter-spacing: 0.15px !important;
+        }
+
+        mat-card-subtitle {
+          font-size: 12px !important;
+          font-weight: 400 !important;
+          line-height: 16px !important;
+          letter-spacing: 0.4px !important;
+        }
+      }
+    }
+
+    .experience-card mat-card-content,
+    .education-card mat-card-content {
+      padding: 0 12px 12px !important;
+
+      ul {
+        padding-left: 20px !important;
+
+        li {
+          font-size: 14px !important;
+          font-weight: 400 !important;
+          line-height: 20px !important;
+          letter-spacing: 0.25px !important;
+          margin-bottom: 6px !important;
+
+          &:last-child {
+            margin-bottom: 0 !important;
+          }
+        }
+      }
+    }
+
+    mat-chip-listbox {
+      mat-chip {
+        max-width: 150px;
+      }
+    }
+  }
+}

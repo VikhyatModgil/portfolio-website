@@ -1,0 +1,42 @@
+<div class="menu-bar-container">
+  <button
+    class="scroll-button scroll-button-left"
+    [class.hidden]="!canScrollLeft"
+    (click)="scrollLeft()"
+    aria-label="Scroll left">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+    </svg>
+  </button>
+
+  <div class="menu-bar-wrapper" #menuWrapper>
+    <nav class="menu-bar" #menuBar>
+      @for(item of menuItems(); track item.label; let i = $index){
+        <button
+          class="menu-item"
+          [class.selected]="selectedIndex === i"
+          (click)="selectItem(i)"
+          [attr.aria-selected]="selectedIndex === i">
+          @if(item.icon){
+            <span class="menu-item-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path [attr.d]="item.icon"/>
+              </svg>
+            </span>
+          }
+          <span class="menu-item-label">{{ item.label }}</span>
+        </button>
+      }
+    </nav>
+  </div>
+
+  <button
+    class="scroll-button scroll-button-right"
+    [class.hidden]="!canScrollRight"
+    (click)="scrollRight()"
+    aria-label="Scroll right">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z"/>
+    </svg>
+  </button>
+</div>
